@@ -1,5 +1,6 @@
 import pandas as pd
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
+import os
 
 
 class Subtitle:
@@ -35,10 +36,10 @@ class Subtitle:
                                    temp_audiofile='temp-audio.m4a', remove_temp=True)
 
 
-base_path = 'E:\LS Hackathon\Talk2Text\\text-into-video\\'
-video_path = f'{base_path}input_video.mp4'
-csv_path = f'{base_path}CSV\\timestamps.csv'
-output_path = f'{base_path}Output\output_video_with_subtitles.mp4'
+base_path = os.getcwd()
+video_path = f'{base_path}\input_video.mp4'
+csv_path = f'{base_path}\CSV\\timestamps.csv'
+output_path = f'{base_path}\Output\output_video_with_subtitles.mp4'
 
 subtitle_instance = Subtitle(video_path, csv_path, output_path)
 subtitle_instance.add_subtitles()
