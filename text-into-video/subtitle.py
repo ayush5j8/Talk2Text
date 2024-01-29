@@ -1,6 +1,7 @@
 import pandas as pd
 from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 import os
+from awss import AWS
 
 
 class Subtitle:
@@ -35,11 +36,15 @@ class Subtitle:
         final_clip.write_videofile(self.output_path, codec='libx264', audio_codec='aac',
                                    temp_audiofile='temp-audio.m4a', remove_temp=True)
 
+        s3 = AWS()
+        s3.upload_output()
+        os.remove(self.output_path)
+
 
 base_path = os.getcwd()
-video_path = f'{base_path}\input_video.mp4'
-csv_path = f'{base_path}\CSV\\timestamps.csv'
-output_path = f'{base_path}\Output\output_video_with_subtitles.mp4'
+video_path = f'{base_path}\\tmp\\input\\input_video.mp4'
+csv_path = f'{base_path}\\tmp\\csv\\timestamps.csv'
+output_path = f'{base_path}\\tmp\\output\output_video.mp4'
 
 subtitle_instance = Subtitle(video_path, csv_path, output_path)
 subtitle_instance.add_subtitles()
